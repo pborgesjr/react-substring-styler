@@ -1,7 +1,7 @@
 {
   "name": "react-substring-styler",
-  "version": "0.0.1",
-  "description": "React text component to style substrings based on patterns provided",
+  "version": "0.0.2",
+  "description": "React text component to style substrings based on patterns provided.",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
     "test": "jest",
@@ -10,6 +10,7 @@
   },
   "author": "Pedro Borges",
   "license": "MIT",
+  "repository": "https://github.com/pedropjr/react-substring-styler",
   "devDependencies": {
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-flow": "^7.22.15",
@@ -40,6 +41,10 @@
     "storybook": "^7.5.2",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
