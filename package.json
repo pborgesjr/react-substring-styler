@@ -58,5 +58,15 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "text",
+    "span",
+    "parse",
+    "pattern",
+    "substring",
+    "styler",
+    "style"
   ]
 }
