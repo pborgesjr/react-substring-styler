@@ -1,9 +1,11 @@
 {
   "name": "react-substring-styler",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "React text component to style substrings based on patterns provided.",
   "scripts": {
-    "rollup": "rollup -c --bundleConfigAsCjs",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "lint": "tsc",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -22,9 +24,7 @@
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-flow": "^7.22.15",
     "@babel/preset-react": "^7.22.15",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
+    "@changesets/cli": "^2.26.2",
     "@storybook/addon-essentials": "^7.5.2",
     "@storybook/addon-interactions": "^7.5.2",
     "@storybook/addon-links": "^7.5.2",
@@ -44,23 +44,19 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0",
-    "rollup": "^4.1.5",
-    "rollup-plugin-dts": "^6.1.0",
     "storybook": "^7.5.2",
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
+    "tsup": "^7.3.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "react",
     "text",
