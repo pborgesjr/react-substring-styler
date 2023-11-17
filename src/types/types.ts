@@ -9,26 +9,22 @@ export type DefaultPattern =
 export type TextProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLSpanElement>,
   HTMLSpanElement
-> & {
-  testID?: string;
-};
+> &
+  ParsedTextType;
 
 export type PatternShape = {
   type?: DefaultPattern;
   pattern?: RegExp;
-  matchCountLimit?: number;
   renderText?: (matchingString: string, matches: string[]) => string;
-  onClick?: () => void;
 } & TextProps;
 
-export type TextExtractionHelperParams = {
+export type ParseTextFnParams = {
   text: string;
   patterns: PatternShape[];
 };
 
-export type ParsedTextType = {
-  children: string;
-  match?: boolean;
-  style?: CSSProperties;
+type ParsedTextType = {
   testID?: string;
+  children?: string;
+  match?: boolean;
 };

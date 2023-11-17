@@ -1,1 +1,1 @@
-export * from "./textExtractionHelper";
+export * from "./parseText";

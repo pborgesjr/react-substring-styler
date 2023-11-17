@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const AllOptions: Story = {
   args: {
     children:
-      "Make sure to send an email to testing@email.com or access our website https://www.testing.com if have any {trouble} using our [code].",
+      "Make sure to send an [email] to testing@email.com or access our website at https://www.testing.com if {you} have any {trouble} using our [code].",
     patterns: [
       { type: "email", style: { color: "blue" }, testID: "emailTestID" },
       {
@@ -78,7 +78,7 @@ export const CurlyBracketsPattern: Story = {
 
 export const SquareBracketsPattern: Story = {
   args: {
-    children: "this text is using the [square brackets pattern] to style",
+    children: "this text is using the [square] brackets [pattern] to style",
     patterns: [
       {
         type: "squareBrackets",

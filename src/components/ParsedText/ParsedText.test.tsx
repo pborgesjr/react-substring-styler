@@ -80,7 +80,7 @@ describe("Testing ParsedText component", () => {
   });
 
   it("Should render custom styling for squareBrackets pattern type", () => {
-    const text = "[testing]";
+    const text = "this is a [test]!";
 
     const { getByTestId } = render(setup({ text }));
 

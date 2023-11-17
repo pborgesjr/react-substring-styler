@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { textExtractionHelper } from "../../utils";
+import React from "react";
+import { parseText } from "../../utils";
 import { PatternShape, TextProps } from "../../types";
 import { PATTERNS } from "../../constants";
 
@@ -11,16 +11,15 @@ export interface ParsedTextProps extends TextProps {
 export const ParsedText: React.FC<ParsedTextProps> = ({
   patterns = [],
   childrenProps = [],
-  style,
+  style: globalStyle,
   children,
   testID,
   ...rest
 }) => {
-  const textRef = useRef(null);
-
   const getPatterns = () => {
     return patterns?.map((option) => {
       const { type, ...patternOption } = option;
+
       if (type) {
         if (!PATTERNS[type].pattern) {
           throw new Error(`${option.type} it is not a default supported type.`);
@@ -38,18 +37,18 @@ export const ParsedText: React.FC<ParsedTextProps> = ({
       return children;
     }
 
-    const textExtraction = textExtractionHelper({
+    const parsedSubstrings = parseText({
       text: children,
       patterns: getPatterns(),
     });
 
-    return textExtraction?.patterns().map((props, index) => {
-      const { style: extractedTextStyle, testID, ...extractionRest } = props;
+    return parsedSubstrings?.map((props, index) => {
+      const { style: substringStyle, testID, ...extractionRest } = props;
 
       return (
         <span
           key={`parsedText-${index}`}
-          style={{ ...style, ...extractedTextStyle }}
+          style={{ ...globalStyle, ...substringStyle }}
           data-testid={testID}
           {...childrenProps}
           {...extractionRest}
@@ -59,7 +58,7 @@ export const ParsedText: React.FC<ParsedTextProps> = ({
   };
 
   return (
-    <span ref={textRef} style={style} data-testid={testID} {...rest}>
+    <span style={globalStyle} data-testid={testID} {...rest}>
       {renderParsedText()}
     </span>
   );
