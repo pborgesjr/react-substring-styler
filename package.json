@@ -4,7 +4,7 @@
   "description": "React text component to style substrings based on patterns provided.",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && changeset publish",
+    "release": "npm run build && changeset publish",
     "lint": "tsc",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
