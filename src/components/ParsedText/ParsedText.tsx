@@ -16,21 +16,22 @@ export const ParsedText: React.FC<ParsedTextProps> = ({
   testID,
   ...rest
 }) => {
-  const getPatterns = () => {
-    return patterns?.map((option) => {
-      const { type, ...patternOption } = option;
+  const getPatterns = () =>
+    patterns
+      ?.map((option) => {
+        const { type, ...patternOption } = option;
 
-      if (type) {
-        if (!PATTERNS[type].pattern) {
-          throw new Error(`${option.type} it is not a default supported type.`);
+        if (type) {
+          if (!PATTERNS[type]?.pattern) {
+            return;
+          }
+          patternOption.pattern = PATTERNS[type].pattern;
+          patternOption.renderText = PATTERNS[type].renderText;
         }
-        patternOption.pattern = PATTERNS[type].pattern;
-        patternOption.renderText = PATTERNS[type].renderText;
-      }
 
-      return patternOption;
-    });
-  };
+        return patternOption;
+      })
+      .filter((current) => current !== undefined) as PatternShape[];
 
   const renderParsedText = () => {
     if (!patterns || typeof children !== "string" || patterns.length === 0) {

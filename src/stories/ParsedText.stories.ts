@@ -45,7 +45,7 @@ export const AllOptions: Story = {
 };
 export const EmailType: Story = {
   args: {
-    children: "this is a email@testing.com custom style",
+    children: "this is email type email@testing.com custom style",
     patterns: [
       { type: "email", style: { color: "blue" }, testID: "emailTestID" },
     ],
@@ -54,7 +54,7 @@ export const EmailType: Story = {
 
 export const URLType: Story = {
   args: {
-    children: "this is url https://www.testing.com custom style",
+    children: "this is url type https://www.testing.com custom style",
     patterns: [
       {
         type: "url",
@@ -78,7 +78,7 @@ export const CurlyBracketsPattern: Story = {
 
 export const SquareBracketsPattern: Story = {
   args: {
-    children: "this text is using the [square] brackets [pattern] to style",
+    children: "this [text] is using the [square brackets pattern] to style",
     patterns: [
       {
         type: "squareBrackets",
@@ -95,7 +95,7 @@ export const SquareBracketsPattern: Story = {
 
 export const CustomPattern: Story = {
   args: {
-    children: "this text is using the |custom pattern| to style",
+    children: "this text is using a |custom pattern| to style",
     patterns: [
       {
         pattern: /\|(.*?)\|/,

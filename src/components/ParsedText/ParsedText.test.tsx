@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { ParsedText, ParsedTextProps } from "./ParsedText";
 
 const DEFAULT_TEXT_VALUE = "Lorem ipsum dolor sit amet";
@@ -50,7 +50,7 @@ describe("Testing ParsedText component", () => {
   });
 
   it("Should render custom styling for url pattern type", () => {
-    const text = "https://www.testing.com";
+    const text = "this is url type https://www.testing.com custom style";
 
     const { getByTestId } = render(setup({ text }));
 
@@ -59,7 +59,7 @@ describe("Testing ParsedText component", () => {
   });
 
   it("Should render custom styling for email pattern type", () => {
-    const text = "test@email.com";
+    const text = "this is email type email@testing.com custom style";
 
     const { getByTestId } = render(setup({ text }));
 
@@ -68,7 +68,7 @@ describe("Testing ParsedText component", () => {
   });
 
   it("Should render custom styling for curlyBrackets pattern type", () => {
-    const text = "{testing}";
+    const text = "this text is using the {curly brackets pattern} to style";
 
     const { getByTestId } = render(setup({ text }));
 
@@ -80,19 +80,25 @@ describe("Testing ParsedText component", () => {
   });
 
   it("Should render custom styling for squareBrackets pattern type", () => {
-    const text = "this is a [test]!";
+    const text = "this [text] is using the [square brackets pattern] to style";
 
-    const { getByTestId } = render(setup({ text }));
+    const { getAllByTestId } = render(setup({ text }));
 
-    expect(getByTestId("squareBracketsTestID")).toBeTruthy();
-    expect(getByTestId("squareBracketsTestID")).toHaveStyle({
+    expect(getAllByTestId("squareBracketsTestID")[0]).toBeTruthy();
+    expect(getAllByTestId("squareBracketsTestID")[0]).toHaveStyle({
+      fontWeight: "bold",
+      fontStyle: "italic",
+    });
+
+    expect(getAllByTestId("squareBracketsTestID")[1]).toBeTruthy();
+    expect(getAllByTestId("squareBracketsTestID")[1]).toHaveStyle({
       fontWeight: "bold",
       fontStyle: "italic",
     });
   });
 
   it("Should render custom styling for a custom pattern", () => {
-    const text = "this is a |test|";
+    const text = "this text is using a |custom pattern| to style";
     const textTestID = "textTestID";
     const pipeTextTestID = "pipePatternTestID";
     const props: ParsedTextProps = {
@@ -142,5 +148,31 @@ describe("Testing ParsedText component", () => {
     );
 
     expect(getByText(text)).toBeTruthy();
+  });
+
+  it("Should fire event when text is pressed", () => {
+    const text = "this is url type https://www.testing.com custom style";
+
+    const { getByTestId } = render(setup({ text }));
+
+    fireEvent.click(getByTestId("urlTestID"));
+
+    expect(MOCK_ON_PRESS).toHaveBeenCalledTimes(1);
+  });
+
+  it("Invalid type value", () => {
+    const props: ParsedTextProps = {
+      patterns: [
+        {
+          //@ts-ignore
+          type: "invalid",
+          style: { color: "purple" },
+        },
+      ],
+    };
+
+    const { getByText } = render(setup({ props }));
+
+    expect(getByText(DEFAULT_TEXT_VALUE)).toBeTruthy();
   });
 });
