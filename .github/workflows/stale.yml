@@ -1,0 +1,43 @@
+# This workflow warns and closes issues and PRs with no activity after a specified time.
+# For more information, visit: https://github.com/actions/stale
+name: Mark stale issues and pull requests
+
+on:
+  # Schedule the workflow to run every day at 04:41 UTC
+  schedule:
+    - cron: '41 4 * * *'
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    # Use the "actions/stale" GitHub Action to mark issues/PRs as stale
+    - uses: actions/stale@v5
+      with:
+        # GitHub token to authenticate the action
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # Number of days of inactivity before marking an issue as stale
+        days-before-stale: 30
+        # Number of days after an issue is marked stale before closing it
+        days-before-close: 7
+        # Message to post when an issue is marked as stale
+        stale-issue-message: 'This issue has been automatically marked as stale due to inactivity. If no further activity occurs, it will be closed in 7 days.'
+        # Message to post when a PR is marked as stale
+        stale-pr-message: 'This pull request has been automatically marked as stale due to inactivity. If no further activity occurs, it will be closed in 7 days.'
+        # Label to apply when an issue is marked as stale
+        stale-issue-label: 'stale'
+        # Label to apply when a PR is marked as stale
+        stale-pr-label: 'stale'
+        # Option to exempt specific labels from being marked as stale
+        exempt-issue-labels: 'pinned'
+        # Option to ignore specific issue/PR labels from the stale process
+        exempt-pr-labels: 'work-in-progress,in-review'
+        # Option to ignore updates to an issue's or PR's labels when considering activity
+        only-labels-updates: false
+        # Whether to delete stale comments when an issue/PR is closed
+        remove-stale-when-updated: true
